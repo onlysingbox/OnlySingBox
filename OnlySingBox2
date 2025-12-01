@@ -1,0 +1,518 @@
+{
+  "dns": {
+    "final": "local-dns",
+    "rules": [
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "server": "direct-dns"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "geosite-ir"
+        ],
+        "server": "direct-dns"
+      }
+    ],
+    "servers": [
+      {
+        "address": "tcp://1.1.1.1",
+        "address_resolver": "local-dns",
+        "detour": "proxy",
+        "tag": "proxy-dns"
+      },
+      {
+        "address": "local",
+        "detour": "direct",
+        "tag": "local-dns"
+      },
+      {
+        "address": "tcp://8.8.8.8",
+        "detour": "direct",
+        "tag": "direct-dns"
+      }
+    ],
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "endpoint_independent_nat": false,
+      "mtu": 9000,
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 2080
+        }
+      },
+      "stack": "system",
+      "strict_route": false,
+      "type": "tun"
+    },
+    {
+      "listen": "127.0.0.1",
+      "listen_port": 2080,
+      "type": "mixed",
+      "users": []
+    }
+  ],
+  "outbounds": [
+    {
+      "outbounds": [
+        "auto",
+        "direct",
+        "German",
+        "Usa",
+        "Uk",
+        "Netherlands",
+        "Netherlands1",
+        "Sweden",
+        "Russia",
+        "Russia1",
+        "German2",
+        "German1",
+        "German3",
+        "German4",
+        "German6",
+        "German5"
+      ],
+      "tag": "proxy",
+      "type": "selector"
+    },
+    {
+      "interval": "10m",
+      "outbounds": [
+        "German",
+        "Usa",
+        "Uk",
+        "Netherlands",
+        "Netherlands1",
+        "Sweden",
+        "Russia",
+        "Russia1",
+        "German2",
+        "German1",
+        "German3",
+        "German4",
+        "German6",
+        "German5"
+      ],
+      "tag": "auto",
+      "tolerance": 50,
+      "type": "urltest",
+      "url": "http://www.gstatic.com/generate_204"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
+      "tag": "German",
+      "type": "vless",
+      "server": "25.25.25.253",
+      "server_port": 2096,
+      "uuid": "f61a4285-7264-4d07-9408-7b9ba1922c26",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "gaosir.unfeeling.sbs",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram @sinavm/?ed=2560",
+        "headers": {
+          "Host": "gaosir.unfeeling.sbs"
+        }
+      }
+    },
+    {
+      "tag": "Usa",
+      "type": "vless",
+      "server": "104.234.4.120",
+      "server_port": 8080,
+      "uuid": "1e503e46-5ab8-4f79-8cd1-73bac4bcd102",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "swdist.apple.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "synxygq0ozctiW0jNF1mmvAI9PainW0rBfqe11LkeAM",
+          "short_id": ""
+        }
+      }
+    },
+    {
+      "tag": "Uk",
+      "type": "vless",
+      "server": "37.221.125.227",
+      "server_port": 443,
+      "uuid": "ca72617f-337c-4b0e-84f0-d3c29f82d2b7",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "37.221.125.227",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "37.221.125.227"
+        }
+      }
+    },
+    {
+      "tag": "Netherlands",
+      "type": "vless",
+      "server": "nld26.luckernld.org",
+      "server_port": 443,
+      "uuid": "40d7798a-6c76-4298-a9d4-9e6181cd2dd7",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.cybo.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "BhTJ3phnq-Z-10aFKSsj1lzhA8mULR4L6leE4-0WTAs",
+          "short_id": ""
+        }
+      }
+    },
+    {
+      "tag": "Netherlands1",
+      "type": "vless",
+      "server": "46.8.229.110",
+      "server_port": 41763,
+      "uuid": "476cfee9-8f71-4be5-8abd-895940387612",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "anten.ir",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "UhHrvN4lnQCpAXXyyEXuYErEegcSpwY-rLTh9dW0rwI",
+          "short_id": "06bbb1eda3f81c5e"
+        }
+      }
+    },
+    {
+      "tag": "Sweden",
+      "type": "vless",
+      "server": "185.36.145.127",
+      "server_port": 6060,
+      "uuid": "bd80ec19-d764-4826-a607-d42bb1b3bc48",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "pmo.smnsoft.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Russia",
+      "type": "vless",
+      "server": "62.113.42.65",
+      "server_port": 27121,
+      "uuid": "cbf1ec03-2cff-4b1f-9eb5-5929c13fc20c",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.ok.ru",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "QNLEBa5tV9JCrubA4hlAWhho06ddr2dtsT8LKZsGTgA",
+          "short_id": "fdc8125ea6f61323"
+        }
+      }
+    },
+    {
+      "tag": "Russia1",
+      "type": "vless",
+      "server": "37.18.14.192",
+      "server_port": 443,
+      "uuid": "c33cbceb-4a2a-4a22-b02a-e0de3e4795be",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "static.operator.mail.ru",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "static.operator.mail.ru"
+        }
+      }
+    },
+    {
+      "tag": "German2",
+      "type": "vless",
+      "server": "easygovpnkeys16.com",
+      "server_port": 6093,
+      "uuid": "e5603527-ac9b-4f69-906e-34bea11c5835",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "eas1goauth.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "W91d6Qp8Avflj9K7rMYGGdhxV_W0Ds_FSu_c996zknk",
+          "short_id": "57e13c11bb421329"
+        }
+      }
+    },
+    {
+      "tag": "German1",
+      "type": "vless",
+      "server": "95.163.181.102",
+      "server_port": 8443,
+      "uuid": "2f88363e-497d-42fa-836c-ad3497f84913",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "api-maps.yandex.ru",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "qq"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "gKP71Sngd6wzxOmzLdjsU-VW8BGKAS6AZSCrvUCASyk",
+          "short_id": "c5ae63ea7da57035"
+        }
+      }
+    },
+    {
+      "tag": "German3",
+      "type": "vless",
+      "server": "37.120.184.180",
+      "server_port": 80,
+      "uuid": "53fff6cc-b4ec-43e8-ade5-e0c42972fc33",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "transport": {
+        "type": "ws",
+        "path": "/news",
+        "headers": {
+          "Host": "37.120.184.180"
+        }
+      }
+    },
+    {
+      "tag": "German4",
+      "type": "vless",
+      "server": "179.61.251.78",
+      "server_port": 443,
+      "uuid": "fabc8a38-76c5-48fe-ada7-a9e52dd16225",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "refersion.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "esHsu3-Fj0aZ0xuNBV6qW1zu1hLbas8YDn7AO0QGsBw",
+          "short_id": "0ff58d687a4c6c"
+        }
+      }
+    },
+    {
+      "tag": "German6",
+      "type": "vless",
+      "server": "37.120.186.241",
+      "server_port": 80,
+      "uuid": "53fff6cc-b4ec-43e8-ade5-e0c42972fc33",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "transport": {
+        "type": "ws",
+        "path": "/news",
+        "headers": {
+          "Host": "37.120.186.241"
+        }
+      }
+    },
+    {
+      "tag": "German5",
+      "type": "vless",
+      "server": "152.53.142.189",
+      "server_port": 11487,
+      "uuid": "4a0ced83-c4f2-4946-aa90-d9ce633d43a7",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "medicalnewstoday.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "Vjc6Pniq5ueH7Ue6b3V7nf5oWm89rh113zK1wxm5CFA",
+          "short_id": "5d"
+        }
+      }
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "proxy",
+    "rule_set": [
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ads",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ads-all.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ir.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/ir.srs"
+      }
+    ],
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "outbound": "proxy"
+      },
+      {
+        "action": "hijack-dns",
+        "protocol": "dns"
+      },
+      {
+        "action": "route",
+        "outbound": "direct",
+        "rule_set": [
+          "geoip-private",
+          "geosite-private",
+          "geosite-ir",
+          "geoip-ir"
+        ]
+      },
+      {
+        "action": "reject",
+        "rule_set": [
+          "geosite-ads"
+        ]
+      }
+    ]
+  }
+}
