@@ -1,0 +1,419 @@
+{
+  "dns": {
+    "final": "local-dns",
+    "rules": [
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "server": "direct-dns"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "geosite-ir"
+        ],
+        "server": "direct-dns"
+      }
+    ],
+    "servers": [
+      {
+        "address": "tcp://1.1.1.1",
+        "address_resolver": "local-dns",
+        "detour": "proxy",
+        "tag": "proxy-dns"
+      },
+      {
+        "address": "local",
+        "detour": "direct",
+        "tag": "local-dns"
+      },
+      {
+        "address": "tcp://8.8.8.8",
+        "detour": "direct",
+        "tag": "direct-dns"
+      }
+    ],
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "endpoint_independent_nat": false,
+      "mtu": 9000,
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 2080
+        }
+      },
+      "stack": "system",
+      "strict_route": false,
+      "type": "tun"
+    },
+    {
+      "listen": "127.0.0.1",
+      "listen_port": 2080,
+      "type": "mixed",
+      "users": []
+    }
+  ],
+  "outbounds": [
+    {
+      "outbounds": [
+        "auto",
+        "direct",
+        "HongKong1",
+        "HongKong2",
+        "Japan1",
+        "HongKong3",
+        "Poland1",
+        "UnitedStates1",
+        "Canada1",
+        "HongKong4",
+        "HongKong5",
+        "HongKong6",
+        "China1",
+        "Japan2",
+        "HongKong7"
+      ],
+      "tag": "proxy",
+      "type": "selector"
+    },
+    {
+      "interval": "10m",
+      "outbounds": [
+        "HongKong1",
+        "HongKong2",
+        "Japan1",
+        "HongKong3",
+        "Poland1",
+        "UnitedStates1",
+        "Canada1",
+        "HongKong4",
+        "HongKong5",
+        "HongKong6",
+        "China1",
+        "Japan2",
+        "HongKong7"
+      ],
+      "tag": "auto",
+      "tolerance": 50,
+      "type": "urltest",
+      "url": "http://www.gstatic.com/generate_204"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
+      "tag": "HongKong1",
+      "type": "trojan",
+      "server": "219.79.165.186",
+      "server_port": 443,
+      "password": "BxceQaOe",
+      "tls": {
+        "enabled": true,
+        "server_name": "36.88.137.114:443",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "HongKong2",
+      "type": "trojan",
+      "server": "16.163.0.29",
+      "server_port": 4054,
+      "password": "79314e99f0a473fe86efc7827942ad00",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.nintendogames.net",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Japan1",
+      "type": "trojan",
+      "server": "13.113.1.5",
+      "server_port": 1691,
+      "password": "BxceQaOe",
+      "tls": {
+        "enabled": true,
+        "server_name": "scwkh.olivia-moosh.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "HongKong3",
+      "type": "trojan",
+      "server": "58.152.30.120",
+      "server_port": 443,
+      "password": "BxceQaOe",
+      "tls": {
+        "enabled": true,
+        "server_name": "oyealva.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Poland1",
+      "type": "trojan",
+      "server": "5.188.108.13",
+      "server_port": 11790,
+      "password": ".+QAJot50sDi6mvb",
+      "tls": {
+        "enabled": true,
+        "server_name": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "UnitedStates1",
+      "type": "trojan",
+      "server": "23.247.137.64",
+      "server_port": 443,
+      "password": "3c4e10af98c30972",
+      "tls": {
+        "enabled": true,
+        "server_name": "n2.gladns.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "db"
+      }
+    },
+    {
+      "tag": "Canada1",
+      "type": "trojan",
+      "server": "198.57.27.27",
+      "server_port": 12990,
+      "password": "6pRjKQJ0CWyFtG.9",
+      "tls": {
+        "enabled": true,
+        "server_name": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "HongKong4",
+      "type": "trojan",
+      "server": "203.198.122.13",
+      "server_port": 443,
+      "password": "79314e99f0a473fe86efc7827942ad00",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.nintendogames.net",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "HongKong5",
+      "type": "trojan",
+      "server": "112.118.116.66",
+      "server_port": 443,
+      "password": "BxceQaOe",
+      "tls": {
+        "enabled": true,
+        "server_name": "36.88.137.114:443",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "HongKong6",
+      "type": "trojan",
+      "server": "58.152.18.95",
+      "server_port": 443,
+      "password": "BxceQaOe",
+      "tls": {
+        "enabled": true,
+        "server_name": "scwkh.olivia-moosh.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "China1",
+      "type": "trojan",
+      "server": "[2409:8c54:b010:3b:0:5:179:161]",
+      "server_port": 5223,
+      "password": "Q9gofGxinwLv0TfDfdKmdttdPGxrhKQS",
+      "tls": {
+        "enabled": true,
+        "server_name": "pod-kr-g1.psusercontent.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Japan2",
+      "type": "trojan",
+      "server": "23.186.64.37",
+      "server_port": 443,
+      "password": "FDIypSwe64a3DA7un2R8DFjYXZO3NS05gKZTTOC8SxO0Fy3cqYg3EaFDA3ABaEYKNx39D",
+      "tls": {
+        "enabled": true,
+        "server_name": "oyealva.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "HongKong7",
+      "type": "trojan",
+      "server": "58.152.30.175",
+      "server_port": 443,
+      "password": "BxceQaOe",
+      "tls": {
+        "enabled": true,
+        "server_name": "t.me%252Fripaojiedian",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "proxy",
+    "rule_set": [
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ads",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ads-all.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ir.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/ir.srs"
+      }
+    ],
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "outbound": "proxy"
+      },
+      {
+        "action": "hijack-dns",
+        "protocol": "dns"
+      },
+      {
+        "action": "route",
+        "outbound": "direct",
+        "rule_set": [
+          "geoip-private",
+          "geosite-private",
+          "geosite-ir",
+          "geoip-ir"
+        ]
+      },
+      {
+        "action": "reject",
+        "rule_set": [
+          "geosite-ads"
+        ]
+      }
+    ]
+  }
+}
