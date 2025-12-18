@@ -1,0 +1,431 @@
+{
+  "dns": {
+    "final": "local-dns",
+    "rules": [
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "server": "direct-dns"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "geosite-ir"
+        ],
+        "server": "direct-dns"
+      }
+    ],
+    "servers": [
+      {
+        "address": "tcp://1.1.1.1",
+        "address_resolver": "local-dns",
+        "detour": "proxy",
+        "tag": "proxy-dns"
+      },
+      {
+        "address": "local",
+        "detour": "direct",
+        "tag": "local-dns"
+      },
+      {
+        "address": "tcp://8.8.8.8",
+        "detour": "direct",
+        "tag": "direct-dns"
+      }
+    ],
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "endpoint_independent_nat": false,
+      "mtu": 9000,
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 2080
+        }
+      },
+      "stack": "system",
+      "strict_route": false,
+      "type": "tun"
+    },
+    {
+      "listen": "127.0.0.1",
+      "listen_port": 2080,
+      "type": "mixed",
+      "users": []
+    }
+  ],
+  "outbounds": [
+    {
+      "outbounds": [
+        "auto",
+        "direct",
+        "German",
+        "German1",
+        "Turkey",
+        "Sweden",
+        "Turkey1",
+        "UnitedStates1",
+        "Turkey2",
+        "Russia",
+        "Sweden1",
+        "France",
+        "Armenia",
+        "Turkey3",
+        "UnitedStates2",
+        "UnitedStates3",
+        "Netherlands",
+        "Netherlands1",
+        "Netherlands2",
+        "Netherlands3",
+        "Netherlands4",
+        "Netherlands5",
+        "Netherlands6",
+        "Netherlands7",
+        "Netherlands8",
+        "Netherlands9",
+        "Uae"
+      ],
+      "tag": "proxy",
+      "type": "selector"
+    },
+    {
+      "interval": "10m",
+      "outbounds": [
+        "German",
+        "German1",
+        "Turkey",
+        "Sweden",
+        "Turkey1",
+        "UnitedStates1",
+        "Turkey2",
+        "Russia",
+        "Sweden1",
+        "France",
+        "Armenia",
+        "Turkey3",
+        "UnitedStates2",
+        "UnitedStates3",
+        "Netherlands",
+        "Netherlands1",
+        "Netherlands2",
+        "Netherlands3",
+        "Netherlands4",
+        "Netherlands5",
+        "Netherlands6",
+        "Netherlands7",
+        "Netherlands8",
+        "Netherlands9",
+        "Uae"
+      ],
+      "tag": "auto",
+      "tolerance": 50,
+      "type": "urltest",
+      "url": "http://www.gstatic.com/generate_204"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
+      "tag": "German",
+      "type": "shadowsocks",
+      "server": "62.133.60.60",
+      "server_port": 7048,
+      "method": "chacha20-ietf-poly1305",
+      "password": "Y52dYtnOWIKtbVTMcmhACO"
+    },
+    {
+      "tag": "German1",
+      "type": "shadowsocks",
+      "server": "62.133.60.43",
+      "server_port": 36456,
+      "method": "chacha20-ietf-poly1305",
+      "password": "SSkojvd48BmYQTBUTLrSON"
+    },
+    {
+      "tag": "Turkey",
+      "type": "shadowsocks",
+      "server": "62.133.63.21",
+      "server_port": 65262,
+      "method": "chacha20-ietf-poly1305",
+      "password": "JXu7zETmDUJSRj8sdbRbBz"
+    },
+    {
+      "tag": "Sweden",
+      "type": "shadowsocks",
+      "server": "178.20.211.89",
+      "server_port": 1443,
+      "method": "chacha20-ietf-poly1305",
+      "password": "ODIzO"
+    },
+    {
+      "tag": "Turkey1",
+      "type": "shadowsocks",
+      "server": "185.39.204.27",
+      "server_port": 1080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "Vz480yHdWd4_MBQCZPW_swMMvUMkzwnn"
+    },
+    {
+      "tag": "UnitedStates1",
+      "type": "shadowsocks",
+      "server": "193.32.177.210",
+      "server_port": 1443,
+      "method": "chacha20-ietf-poly1305",
+      "password": "N2NkO"
+    },
+    {
+      "tag": "Turkey2",
+      "type": "shadowsocks",
+      "server": "185.39.204.161",
+      "server_port": 33563,
+      "method": "chacha20-ietf-poly1305",
+      "password": "3Q7U16yGY0Jx1yGQe9Xtzp"
+    },
+    {
+      "tag": "Russia",
+      "type": "shadowsocks",
+      "server": "145.249.109.121",
+      "server_port": 25512,
+      "method": "chacha20-ietf-poly1305",
+      "password": "smSMfR9jqLgMkHuQtxSIWh"
+    },
+    {
+      "tag": "Sweden1",
+      "type": "shadowsocks",
+      "server": "46.246.96.30",
+      "server_port": 31561,
+      "method": "chacha20-ietf-poly1305",
+      "password": "hc8LMJew3Fl9MbcFCoFgT0"
+    },
+    {
+      "tag": "France",
+      "type": "shadowsocks",
+      "server": "51.195.203.247",
+      "server_port": 8443,
+      "method": "chacha20-ietf-poly1305",
+      "password": "OMOpV2XCoMOBYsKGAjLDmsKkw6bDpMOkdVhtD15fwpQqw70AN8Krw6AyH8OaCQ=="
+    },
+    {
+      "tag": "Armenia",
+      "type": "shadowsocks",
+      "server": "194.156.103.148",
+      "server_port": 443,
+      "method": "chacha20-ietf-poly1305",
+      "password": "qdpM4ROvoLtayi7NN9DIId"
+    },
+    {
+      "tag": "Turkey3",
+      "type": "shadowsocks",
+      "server": "94.131.123.236",
+      "server_port": 5223,
+      "method": "chacha20-ietf-poly1305",
+      "password": "3IJj3PFglv7UJNkX9ugR59"
+    },
+    {
+      "tag": "UnitedStates2",
+      "type": "shadowsocks",
+      "server": "69.30.251.122",
+      "server_port": 51004,
+      "method": "chacha20-ietf-poly1305",
+      "password": "245f2c1d-a317-45a8-b230-e420566a7f62"
+    },
+    {
+      "tag": "UnitedStates3",
+      "type": "shadowsocks",
+      "server": "212.18.104.228",
+      "server_port": 56636,
+      "method": "chacha20-ietf-poly1305",
+      "password": "8PvPiOG9h3yCDTOf8PZA9q"
+    },
+    {
+      "tag": "Netherlands",
+      "type": "shadowsocks",
+      "server": "82.38.31.186",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    },
+    {
+      "tag": "Netherlands1",
+      "type": "shadowsocks",
+      "server": "82.38.31.217",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    },
+    {
+      "tag": "Netherlands2",
+      "type": "shadowsocks",
+      "server": "82.38.31.210",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    },
+    {
+      "tag": "Netherlands3",
+      "type": "shadowsocks",
+      "server": "82.38.31.194",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    },
+    {
+      "tag": "Netherlands4",
+      "type": "shadowsocks",
+      "server": "82.38.31.187",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    },
+    {
+      "tag": "Netherlands5",
+      "type": "shadowsocks",
+      "server": "82.38.31.214",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    },
+    {
+      "tag": "Netherlands6",
+      "type": "shadowsocks",
+      "server": "82.38.31.208",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    },
+    {
+      "tag": "Netherlands7",
+      "type": "shadowsocks",
+      "server": "82.38.31.205",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    },
+    {
+      "tag": "Netherlands8",
+      "type": "shadowsocks",
+      "server": "82.38.31.202",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    },
+    {
+      "tag": "Netherlands9",
+      "type": "shadowsocks",
+      "server": "82.38.31.199",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ"
+    },
+    {
+      "tag": "Uae",
+      "type": "shadowsocks",
+      "server": "95.174.68.33",
+      "server_port": 443,
+      "method": "chacha20-ietf-poly1305",
+      "password": "YzH4id7ZEyKpfy39F2YcOmzCsBklGwh8"
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "proxy",
+    "rule_set": [
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ads",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ads-all.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ir.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/ir.srs"
+      }
+    ],
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "outbound": "proxy"
+      },
+      {
+        "action": "hijack-dns",
+        "protocol": "dns"
+      },
+      {
+        "action": "route",
+        "outbound": "direct",
+        "rule_set": [
+          "geoip-private",
+          "geosite-private",
+          "geosite-ir",
+          "geoip-ir"
+        ]
+      },
+      {
+        "action": "reject",
+        "rule_set": [
+          "geosite-ads"
+        ]
+      }
+    ]
+  }
+}
