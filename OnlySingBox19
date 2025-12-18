@@ -1,0 +1,351 @@
+{
+  "dns": {
+    "final": "local-dns",
+    "rules": [
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "server": "direct-dns"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "geosite-ir"
+        ],
+        "server": "direct-dns"
+      }
+    ],
+    "servers": [
+      {
+        "address": "tcp://1.1.1.1",
+        "address_resolver": "local-dns",
+        "detour": "proxy",
+        "tag": "proxy-dns"
+      },
+      {
+        "address": "local",
+        "detour": "direct",
+        "tag": "local-dns"
+      },
+      {
+        "address": "tcp://8.8.8.8",
+        "detour": "direct",
+        "tag": "direct-dns"
+      }
+    ],
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "endpoint_independent_nat": false,
+      "mtu": 9000,
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 2080
+        }
+      },
+      "stack": "system",
+      "strict_route": false,
+      "type": "tun"
+    },
+    {
+      "listen": "127.0.0.1",
+      "listen_port": 2080,
+      "type": "mixed",
+      "users": []
+    }
+  ],
+  "outbounds": [
+    {
+      "outbounds": [
+        "auto",
+        "direct",
+        "هلند ۱",
+        "هلند ۲",
+        "هلند ۳",
+        "پاناما ",
+        "پاناما ۱",
+        "پرو",
+        "روسیه ",
+        "سوئد ",
+        "ترکیه ",
+        "تایوان ",
+        "آمریکا ",
+        "آمریکا ۱",
+        "آمریکا ۲",
+        "آمریکا ۳",
+        "آمریکا ۴",
+        "آفریقای جنوبی ",
+        "آفریقای جنوبی ۱"
+      ],
+      "tag": "proxy",
+      "type": "selector"
+    },
+    {
+      "interval": "10m",
+      "outbounds": [
+        "هلند ۱",
+        "هلند ۲",
+        "هلند ۳",
+        "پاناما ",
+        "پاناما ۱",
+        "پرو",
+        "روسیه ",
+        "سوئد ",
+        "ترکیه ",
+        "تایوان ",
+        "آمریکا ",
+        "آمریکا ۱",
+        "آمریکا ۲",
+        "آمریکا ۳",
+        "آمریکا ۴",
+        "آفریقای جنوبی ",
+        "آفریقای جنوبی ۱"
+      ],
+      "tag": "auto",
+      "tolerance": 50,
+      "type": "urltest",
+      "url": "http://www.gstatic.com/generate_204"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
+      "tag": "هلند ۱",
+      "type": "shadowsocks",
+      "server": "45.87.175.193",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "cvII85TrW6n0OGyfpHVS1u"
+    },
+    {
+      "tag": "هلند ۲",
+      "type": "shadowsocks",
+      "server": "208.67.106.73",
+      "server_port": 44884,
+      "method": "chacha20-ietf-poly1305",
+      "password": "2DGq3jvVRg5n3CcxmysGK2kmrgJeSNof12A76cZvVxqPpetyC1XEciCFufq5xKvRWGGnKVembpThuUSQhbZ7GMsZY4UVxEBw"
+    },
+    {
+      "tag": "هلند ۳",
+      "type": "shadowsocks",
+      "server": "141.98.4.67",
+      "server_port": 52952,
+      "method": "chacha20-ietf-poly1305",
+      "password": "LMSNh21TrXjR2ok25Q2nE8ENT2zoBmPvka3RCCUAHZELCnWoekVjvaf89qwcRkdbxEfep2bc2aUtmnxqvF1ayQRez1JHjULj"
+    },
+    {
+      "tag": "پاناما ",
+      "type": "shadowsocks",
+      "server": "138.186.142.80",
+      "server_port": 990,
+      "method": "chacha20-ietf-poly1305",
+      "password": "ARgvGZywA+gacgGV26Bvmu05+wZmRW/j+AdU+Z8Bt44="
+    },
+    {
+      "tag": "پاناما ۱",
+      "type": "shadowsocks",
+      "server": "138.186.142.81",
+      "server_port": 990,
+      "method": "chacha20-ietf-poly1305",
+      "password": "ARgvGZywA+gacgGV26Bvmu05+wZmRW/j+AdU+Z8Bt44="
+    },
+    {
+      "tag": "پرو",
+      "type": "shadowsocks",
+      "server": "138.186.143.32",
+      "server_port": 990,
+      "method": "chacha20-ietf-poly1305",
+      "password": "ARgvGZywA+gacgGV26Bvmu05+wZmRW/j+AdU+Z8Bt44="
+    },
+    {
+      "tag": "روسیه ",
+      "type": "shadowsocks",
+      "server": "145.249.109.121",
+      "server_port": 25512,
+      "method": "chacha20-ietf-poly1305",
+      "password": "smSMfR9jqLgMkHuQtxSIWh"
+    },
+    {
+      "tag": "سوئد ",
+      "type": "shadowsocks",
+      "server": "46.246.96.30",
+      "server_port": 31561,
+      "method": "chacha20-ietf-poly1305",
+      "password": "hc8LMJew3Fl9MbcFCoFgT0"
+    },
+    {
+      "tag": "ترکیه ",
+      "type": "shadowsocks",
+      "server": "185.39.204.161",
+      "server_port": 33563,
+      "method": "chacha20-ietf-poly1305",
+      "password": "3Q7U16yGY0Jx1yGQe9Xtzp"
+    },
+    {
+      "tag": "تایوان ",
+      "type": "shadowsocks",
+      "server": "38.54.107.101",
+      "server_port": 990,
+      "method": "chacha20-ietf-poly1305",
+      "password": "ARgvGZywA+gacgGV26Bvmu05+wZmRW/j+AdU+Z8Bt44="
+    },
+    {
+      "tag": "آمریکا ",
+      "type": "shadowsocks",
+      "server": "69.30.251.122",
+      "server_port": 51004,
+      "method": "chacha20-ietf-poly1305",
+      "password": "245f2c1d-a317-45a8-b230-e420566a7f62"
+    },
+    {
+      "tag": "آمریکا ۱",
+      "type": "shadowsocks",
+      "server": "193.32.177.210",
+      "server_port": 1443,
+      "method": "chacha20-ietf-poly1305",
+      "password": "N2NkO"
+    },
+    {
+      "tag": "آمریکا ۲",
+      "type": "shadowsocks",
+      "server": "212.18.104.228",
+      "server_port": 56636,
+      "method": "chacha20-ietf-poly1305",
+      "password": "cKK38pw2ezActe7Hh5tban"
+    },
+    {
+      "tag": "آمریکا ۳",
+      "type": "shadowsocks",
+      "server": "173.234.29.2",
+      "server_port": 990,
+      "method": "chacha20-ietf-poly1305",
+      "password": "ARgvGZywA+gacgGV26Bvmu05+wZmRW/j+AdU+Z8Bt44="
+    },
+    {
+      "tag": "آمریکا ۴",
+      "type": "shadowsocks",
+      "server": "167.160.90.178",
+      "server_port": 990,
+      "method": "chacha20-ietf-poly1305",
+      "password": "ARgvGZywA+gacgGV26Bvmu05+wZmRW/j+AdU+Z8Bt44="
+    },
+    {
+      "tag": "آفریقای جنوبی ",
+      "type": "shadowsocks",
+      "server": "156.38.168.58",
+      "server_port": 990,
+      "method": "chacha20-ietf-poly1305",
+      "password": "ARgvGZywA+gacgGV26Bvmu05+wZmRW/j+AdU+Z8Bt44="
+    },
+    {
+      "tag": "آفریقای جنوبی ۱",
+      "type": "shadowsocks",
+      "server": "154.205.150.157",
+      "server_port": 990,
+      "method": "chacha20-ietf-poly1305",
+      "password": "ARgvGZywA+gacgGV26Bvmu05+wZmRW/j+AdU+Z8Bt44="
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "proxy",
+    "rule_set": [
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ads",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ads-all.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ir.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/ir.srs"
+      }
+    ],
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "outbound": "proxy"
+      },
+      {
+        "action": "hijack-dns",
+        "protocol": "dns"
+      },
+      {
+        "action": "route",
+        "outbound": "direct",
+        "rule_set": [
+          "geoip-private",
+          "geosite-private",
+          "geosite-ir",
+          "geoip-ir"
+        ]
+      },
+      {
+        "action": "reject",
+        "rule_set": [
+          "geosite-ads"
+        ]
+      }
+    ]
+  }
+}
