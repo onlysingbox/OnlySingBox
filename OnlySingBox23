@@ -1,0 +1,595 @@
+{
+  "dns": {
+    "final": "local-dns",
+    "rules": [
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "server": "direct-dns"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "geosite-ir"
+        ],
+        "server": "direct-dns"
+      }
+    ],
+    "servers": [
+      {
+        "address": "tcp://1.1.1.1",
+        "address_resolver": "local-dns",
+        "detour": "proxy",
+        "tag": "proxy-dns"
+      },
+      {
+        "address": "local",
+        "detour": "direct",
+        "tag": "local-dns"
+      },
+      {
+        "address": "tcp://8.8.8.8",
+        "detour": "direct",
+        "tag": "direct-dns"
+      }
+    ],
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "endpoint_independent_nat": false,
+      "mtu": 9000,
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 2080
+        }
+      },
+      "stack": "system",
+      "strict_route": false,
+      "type": "tun"
+    },
+    {
+      "listen": "127.0.0.1",
+      "listen_port": 2080,
+      "type": "mixed",
+      "users": []
+    }
+  ],
+  "outbounds": [
+    {
+      "outbounds": [
+        "auto",
+        "direct",
+        "Usa",
+        "Canada",
+        "Canada1",
+        "HongKong",
+        "HongKong1",
+        "Italy",
+        "Finland",
+        "Norway",
+        "Iceland",
+        "Iceland1",
+        "Iceland2",
+        "Iceland3",
+        "Iceland4",
+        "Nigeria",
+        "Italy1",
+        "Usa1",
+        "Usa2",
+        "Usa3",
+        "Usa4",
+        "Netherlands",
+        "Netherlands1",
+        "Russia",
+        "Sweden"
+      ],
+      "tag": "proxy",
+      "type": "selector"
+    },
+    {
+      "interval": "10m",
+      "outbounds": [
+        "Usa",
+        "Canada",
+        "Canada1",
+        "HongKong",
+        "HongKong1",
+        "Italy",
+        "Finland",
+        "Norway",
+        "Iceland",
+        "Iceland1",
+        "Iceland2",
+        "Iceland3",
+        "Iceland4",
+        "Nigeria",
+        "Italy1",
+        "Usa1",
+        "Usa2",
+        "Usa3",
+        "Usa4",
+        "Netherlands",
+        "Netherlands1",
+        "Russia",
+        "Sweden"
+      ],
+      "tag": "auto",
+      "tolerance": 50,
+      "type": "urltest",
+      "url": "http://www.gstatic.com/generate_204"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
+      "tag": "Usa",
+      "type": "trojan",
+      "server": "45.76.28.186",
+      "server_port": 19557,
+      "password": "5dcqVXE=HhI.O+BMwAQJv",
+      "tls": {
+        "enabled": true,
+        "server_name": "microsoft.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Canada",
+      "type": "trojan",
+      "server": "198.57.27.27",
+      "server_port": 12990,
+      "password": "6pRjKQJ0CWyFtG.9",
+      "tls": {
+        "enabled": true,
+        "server_name": "chatgpt.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Canada1",
+      "type": "trojan",
+      "server": "198.57.27.27",
+      "server_port": 12990,
+      "password": "6pRjKQJ0CWyFtG.9",
+      "tls": {
+        "enabled": true,
+        "server_name": "chatgpt.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "HongKong",
+      "type": "trojan",
+      "server": "219.79.214.159",
+      "server_port": 443,
+      "password": "BxceQaOe",
+      "tls": {
+        "enabled": true,
+        "server_name": "itunes.apple.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "HongKong1",
+      "type": "trojan",
+      "server": "58.152.30.31",
+      "server_port": 443,
+      "password": "BxceQaOe",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.bing.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Italy",
+      "type": "trojan",
+      "server": "172.238.229.254",
+      "server_port": 14051,
+      "password": "OdgHycGphesfLmPMYolUF",
+      "tls": {
+        "enabled": true,
+        "server_name": "cdn.cloudflare.net",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Finland",
+      "type": "trojan",
+      "server": "212.193.18.144",
+      "server_port": 36158,
+      "password": "ZblhWr0mqMakCPg.N",
+      "tls": {
+        "enabled": true,
+        "server_name": "cdn.cloudflare.net",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Norway",
+      "type": "trojan",
+      "server": "80.173.230.196",
+      "server_port": 26279,
+      "password": "a5inYFE=JGV89+hjxIqgDp1tcWBd6",
+      "tls": {
+        "enabled": true,
+        "server_name": "80.173.230.196",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Iceland",
+      "type": "trojan",
+      "server": "167.17.185.152",
+      "server_port": 10889,
+      "password": "cTv.9PDdCt-wybBrG1qlxI5UJuaEj",
+      "tls": {
+        "enabled": true,
+        "server_name": "cdn.cloudflare.net",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Iceland1",
+      "type": "trojan",
+      "server": "167.17.185.169",
+      "server_port": 10889,
+      "password": "cTv.9PDdCt-wybBrG1qlxI5UJuaEj",
+      "tls": {
+        "enabled": true,
+        "server_name": "chatgpt.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Iceland2",
+      "type": "trojan",
+      "server": "167.17.185.172",
+      "server_port": 10889,
+      "password": "cTv.9PDdCt-wybBrG1qlxI5UJuaEj",
+      "tls": {
+        "enabled": true,
+        "server_name": "microsoft.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Iceland3",
+      "type": "trojan",
+      "server": "167.17.185.228",
+      "server_port": 10889,
+      "password": "cTv.9PDdCt-wybBrG1qlxI5UJuaEj",
+      "tls": {
+        "enabled": true,
+        "server_name": "de-3.stunnel.cc",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Iceland4",
+      "type": "trojan",
+      "server": "212.192.214.46",
+      "server_port": 18069,
+      "password": "iCfh96DEJn3=QRbzF.Tdl",
+      "tls": {
+        "enabled": true,
+        "server_name": "chatgpt.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Nigeria",
+      "type": "trojan",
+      "server": "213.111.130.30",
+      "server_port": 15145,
+      "password": "iwHDQcVXz-U11Ndl25CAveL",
+      "tls": {
+        "enabled": true,
+        "server_name": "cdn.cloudflare.net",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Italy1",
+      "type": "trojan",
+      "server": "172.238.237.107",
+      "server_port": 19973,
+      "password": "jDKgCAysZceRJ+IVv-t69w.p8=mB",
+      "tls": {
+        "enabled": true,
+        "server_name": "chatgpt.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Usa1",
+      "type": "trojan",
+      "server": "64.94.95.114",
+      "server_port": 57142,
+      "password": "kkzh2prsyr2ik47as615",
+      "tls": {
+        "enabled": true,
+        "server_name": "chatgpt.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Usa2",
+      "type": "trojan",
+      "server": "64.94.95.115",
+      "server_port": 57142,
+      "password": "kkzh2prsyr2ik47as615",
+      "tls": {
+        "enabled": true,
+        "server_name": "de-3.stunnel.cc",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Usa3",
+      "type": "trojan",
+      "server": "64.94.95.117",
+      "server_port": 57142,
+      "password": "kkzh2prsyr2ik47as615",
+      "tls": {
+        "enabled": true,
+        "server_name": "cdn.cloudflare.net",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Usa4",
+      "type": "trojan",
+      "server": "64.94.95.118",
+      "server_port": 57142,
+      "password": "kkzh2prsyr2ik47as615",
+      "tls": {
+        "enabled": true,
+        "server_name": "microsoft.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Netherlands",
+      "type": "trojan",
+      "server": "167.17.70.117",
+      "server_port": 27234,
+      "password": "kuGDUhAYqXnvIomV0Kdljfor",
+      "tls": {
+        "enabled": true,
+        "server_name": "itunes.apple.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Netherlands1",
+      "type": "trojan",
+      "server": "167.17.70.250",
+      "server_port": 27234,
+      "password": "kuGDUhAYqXnvIomV0Kdljfor",
+      "tls": {
+        "enabled": true,
+        "server_name": "cdn.cloudflare.net",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Russia",
+      "type": "trojan",
+      "server": "45.129.3.220",
+      "server_port": 10668,
+      "password": "oUFBC3Vs2rYmN8_bR-P7quoL",
+      "tls": {
+        "enabled": true,
+        "server_name": "chatgpt.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Sweden",
+      "type": "trojan",
+      "server": "70.34.220.34",
+      "server_port": 25599,
+      "password": "tRxkV-KcTuypP=8Yj6Bgd",
+      "tls": {
+        "enabled": true,
+        "server_name": "chatgpt.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "proxy",
+    "rule_set": [
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ads",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ads-all.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ir.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/ir.srs"
+      }
+    ],
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "outbound": "proxy"
+      },
+      {
+        "action": "hijack-dns",
+        "protocol": "dns"
+      },
+      {
+        "action": "route",
+        "outbound": "direct",
+        "rule_set": [
+          "geoip-private",
+          "geosite-private",
+          "geosite-ir",
+          "geoip-ir"
+        ]
+      },
+      {
+        "action": "reject",
+        "rule_set": [
+          "geosite-ads"
+        ]
+      }
+    ]
+  }
+}
