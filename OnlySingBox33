@@ -1,0 +1,563 @@
+
+
+{
+  "dns": {
+    "final": "local-dns",
+    "rules": [
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "server": "direct-dns"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "geosite-ir"
+        ],
+        "server": "direct-dns"
+      }
+    ],
+    "servers": [
+      {
+        "address": "tcp://1.1.1.1",
+        "address_resolver": "local-dns",
+        "detour": "proxy",
+        "tag": "proxy-dns"
+      },
+      {
+        "address": "local",
+        "detour": "direct",
+        "tag": "local-dns"
+      },
+      {
+        "address": "tcp://8.8.8.8",
+        "detour": "direct",
+        "tag": "direct-dns"
+      }
+    ],
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "endpoint_independent_nat": false,
+      "mtu": 9000,
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 2080
+        }
+      },
+      "stack": "system",
+      "strict_route": false,
+      "type": "tun"
+    },
+    {
+      "listen": "127.0.0.1",
+      "listen_port": 2080,
+      "type": "mixed",
+      "users": []
+    }
+  ],
+  "outbounds": [
+    {
+      "outbounds": [
+        "auto",
+        "direct",
+        "Japan0",
+        "Singapore0",
+        "Thailand0",
+        "Canada0",
+        "France0",
+        "France1",
+        "German0",
+        "Poland0",
+        "France2",
+        "France3",
+        "France4",
+        "France5",
+        "France6",
+        "Canada1",
+        "Canada2"
+      ],
+      "tag": "proxy",
+      "type": "selector"
+    },
+    {
+      "interval": "10m",
+      "outbounds": [
+        "Japan0",
+        "Singapore0",
+        "Thailand0",
+        "Canada0",
+        "France0",
+        "France1",
+        "German0",
+        "Poland0",
+        "France2",
+        "France3",
+        "France4",
+        "France5",
+        "France6",
+        "Canada1",
+        "Canada2"
+      ],
+      "tag": "auto",
+      "tolerance": 50,
+      "type": "urltest",
+      "url": "http://www.gstatic.com/generate_204"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
+      "tag": "Japan0",
+      "type": "vmess",
+      "server": "47.245.42.92",
+      "server_port": 443,
+      "uuid": "4f23eb7c-ef2f-43b0-90dd-f2b8a75954a5",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "chatgpt.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "47.245.42.92"
+        }
+      }
+    },
+    {
+      "tag": "Singapore0",
+      "type": "vmess",
+      "server": "202.85.53.179",
+      "server_port": 30812,
+      "uuid": "cbb3f877-d1fb-344c-87a9-d153bffd5484",
+      "security": "auto",
+      "alter_id": 0
+    },
+    {
+      "tag": "Thailand0",
+      "type": "vmess",
+      "server": "185.84.161.150",
+      "server_port": 20086,
+      "uuid": "ebba0676-e05a-49ec-8344-d96d749e01c0",
+      "security": "auto",
+      "alter_id": 0,
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "185.84.161.150"
+        }
+      }
+    },
+    {
+      "tag": "Canada0",
+      "type": "vmess",
+      "server": "15.235.83.228",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc"
+        }
+      }
+    },
+    {
+      "tag": "France0",
+      "type": "vmess",
+      "server": "57.129.28.215",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "chatgpt.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "chatgpt.com"
+        }
+      }
+    },
+    {
+      "tag": "France1",
+      "type": "vmess",
+      "server": "57.129.64.157",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "www.nintendogames.net",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "www.nintendogames.net"
+        }
+      }
+    },
+    {
+      "tag": "German0",
+      "type": "vmess",
+      "server": "57.129.24.124",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc"
+        }
+      }
+    },
+    {
+      "tag": "Poland0",
+      "type": "vmess",
+      "server": "146.59.85.226",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "itunes.apple.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "itunes.apple.com"
+        }
+      }
+    },
+    {
+      "tag": "France2",
+      "type": "vmess",
+      "server": "57.128.189.222",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "microsoft.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "microsoft.com"
+        }
+      }
+    },
+    {
+      "tag": "France3",
+      "type": "vmess",
+      "server": "57.128.189.211",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc"
+        }
+      }
+    },
+    {
+      "tag": "France4",
+      "type": "vmess",
+      "server": "91.134.8.92",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "de-3.stunnel.cc",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "de-3.stunnel.cc"
+        }
+      }
+    },
+    {
+      "tag": "France5",
+      "type": "vmess",
+      "server": "57.129.28.64",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "dl1.microspacea.ir",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "dl1.microspacea.ir"
+        }
+      }
+    },
+    {
+      "tag": "France6",
+      "type": "vmess",
+      "server": "57.129.59.195",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "freeservice.blanku.me",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "freeservice.blanku.me"
+        }
+      }
+    },
+    {
+      "tag": "Canada1",
+      "type": "vmess",
+      "server": "15.235.85.156",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "tradingview.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "tradingview.com"
+        }
+      }
+    },
+    {
+      "tag": "Canada2",
+      "type": "vmess",
+      "server": "148.113.176.192",
+      "server_port": 443,
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "alter_id": 0,
+      "tls": {
+        "enabled": true,
+        "server_name": "microsoft.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/linkvws",
+        "headers": {
+          "Host": "microsoft.com"
+        }
+      }
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "proxy",
+    "rule_set": [
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ads",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ads-all.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ir.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/ir.srs"
+      }
+    ],
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "outbound": "proxy"
+      },
+      {
+        "action": "hijack-dns",
+        "protocol": "dns"
+      },
+      {
+        "action": "route",
+        "outbound": "direct",
+        "rule_set": [
+          "geoip-private",
+          "geosite-private",
+          "geosite-ir",
+          "geoip-ir"
+        ]
+      },
+      {
+        "action": "reject",
+        "rule_set": [
+          "geosite-ads"
+        ]
+      }
+    ]
+  }
+}
