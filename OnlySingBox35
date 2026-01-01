@@ -1,0 +1,661 @@
+{
+  "dns": {
+    "final": "local-dns",
+    "rules": [
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "server": "direct-dns"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "geosite-ir"
+        ],
+        "server": "direct-dns"
+      }
+    ],
+    "servers": [
+      {
+        "address": "tcp://1.1.1.1",
+        "address_resolver": "local-dns",
+        "detour": "proxy",
+        "tag": "proxy-dns"
+      },
+      {
+        "address": "local",
+        "detour": "direct",
+        "tag": "local-dns"
+      },
+      {
+        "address": "tcp://8.8.8.8",
+        "detour": "direct",
+        "tag": "direct-dns"
+      }
+    ],
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "endpoint_independent_nat": false,
+      "mtu": 9000,
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 2080
+        }
+      },
+      "stack": "system",
+      "strict_route": false,
+      "type": "tun"
+    },
+    {
+      "listen": "127.0.0.1",
+      "listen_port": 2080,
+      "type": "mixed",
+      "users": []
+    }
+  ],
+  "outbounds": [
+    {
+      "outbounds": [
+        "auto",
+        "direct",
+        "Uk0",
+        "Israel0",
+        "Azerbaijan0",
+        "Belgium0",
+        "Finland0",
+        "Finland1",
+        "German0",
+        "German1",
+        "German2",
+        "German3",
+        "German4",
+        "German5",
+        "HongKong0",
+        "Estonia0",
+        "Estonia1",
+        "Netherlands0",
+        "Netherlands1",
+        "Usa1",
+        "Russia0",
+        "Russia1"
+      ],
+      "tag": "proxy",
+      "type": "selector"
+    },
+    {
+      "interval": "10m",
+      "outbounds": [
+        "Uk0",
+        "Israel0",
+        "Azerbaijan0",
+        "Belgium0",
+        "Finland0",
+        "Finland1",
+        "German0",
+        "German1",
+        "German2",
+        "German3",
+        "German4",
+        "German5",
+        "HongKong0",
+        "Estonia0",
+        "Estonia1",
+        "Netherlands0",
+        "Netherlands1",
+        "Usa1",
+        "Russia0",
+        "Russia1"
+      ],
+      "tag": "auto",
+      "tolerance": 50,
+      "type": "urltest",
+      "url": "http://www.gstatic.com/generate_204"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
+      "tag": "Uk0",
+      "type": "vless",
+      "server": "37.221.127.85",
+      "server_port": 2040,
+      "uuid": "fa0ba10d-fa04-4638-9760-79c885db744d",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "tradingview.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "1RJ2ulM9UyAC8PFy194dV0RTZI6xF6U4CGClhNz9fTg",
+          "short_id": "50ed6f6007515d63"
+        }
+      }
+    },
+    {
+      "tag": "Israel0",
+      "type": "vless",
+      "server": "20.217.84.15",
+      "server_port": 443,
+      "uuid": "0e8a6896-ad90-4a3b-89a3-77d64aa409e2",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "i2pd.website",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "YVDo7U4O-AT2fa5H9E7hyYHKgfZd1vB6UdbAf2ggWQE",
+          "short_id": "55e6af1a35e64a98"
+        }
+      }
+    },
+    {
+      "tag": "Azerbaijan0",
+      "type": "vless",
+      "server": "180.149.44.106",
+      "server_port": 4655,
+      "uuid": "125ea501-6bbe-453a-ab42-352789be8154",
+      "flow": "",
+      "packet_encoding": "xudp"
+    },
+    {
+      "tag": "Belgium0",
+      "type": "vless",
+      "server": "98.142.254.3",
+      "server_port": 25117,
+      "uuid": "582c84b9-25e9-48ae-826b-e1bdafca3730",
+      "flow": "",
+      "packet_encoding": "xudp"
+    },
+    {
+      "tag": "Finland0",
+      "type": "vless",
+      "server": "212.233.89.104",
+      "server_port": 443,
+      "uuid": "e5835209-52e9-429e-8ebb-e87113293236",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "tunnel.vk-apps.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "MZz-39gknMNeg4P6vTV3zKLrbIzf87oxtKB1T-Vu-SQ",
+          "short_id": "491db313"
+        }
+      }
+    },
+    {
+      "tag": "Finland1",
+      "type": "vless",
+      "server": "65.109.180.130",
+      "server_port": 443,
+      "uuid": "47867494-9509-4c32-a90a-e9253b033279",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": false,
+        "server_name": "65.109.180.130",
+        "insecure": false,
+        "utls": {
+          "enabled": false,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "cloudflare.com"
+        }
+      }
+    },
+    {
+      "tag": "German0",
+      "type": "vless",
+      "server": "46.101.133.147",
+      "server_port": 6048,
+      "uuid": "2f30aa44-c87c-e73d-a715-0813c68ee9b2",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "telewebion.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "8KraKuYxjT-2mqg_y_yJvME2zxbc7BUDPoPvUMWNXmE",
+          "short_id": "cdc30097"
+        }
+      }
+    },
+    {
+      "tag": "German1",
+      "type": "vless",
+      "server": "51.250.29.132",
+      "server_port": 1488,
+      "uuid": "5ba2e48a-d36c-40a5-a4a1-2819ed6efce5",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "ads.x5.ru",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc",
+          "short_id": ""
+        }
+      }
+    },
+    {
+      "tag": "German2",
+      "type": "vless",
+      "server": "51.250.29.71",
+      "server_port": 1488,
+      "uuid": "5ba2e48a-d36c-40a5-a4a1-2819ed6efce5",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "ads.x5.ru",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc",
+          "short_id": "6ba85179e30d4fc2"
+        }
+      }
+    },
+    {
+      "tag": "German3",
+      "type": "vless",
+      "server": "51.250.16.101",
+      "server_port": 1488,
+      "uuid": "5ba2e48a-d36c-40a5-a4a1-2819ed6efce5",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "ads.x5.ru",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc",
+          "short_id": ""
+        }
+      }
+    },
+    {
+      "tag": "German4",
+      "type": "vless",
+      "server": "5.75.198.40",
+      "server_port": 443,
+      "uuid": "e0932bda-352e-4c39-92e0-d59925c2c4d1",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": false,
+        "server_name": "5.75.198.40",
+        "insecure": false,
+        "utls": {
+          "enabled": false,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram---armanstore2---Telegram---armanstore2---Telegram---armanstore2---Telegram---armanstore2---Telegram---armanstore2---Telegram---armanstore2---Telegram---armanstore2---Telegram---armanstore2---Telegram---armanstore2---Telegram---armanstore2---Telegram---armanstore2---Telegram---armanstore2---Telegram---armanstore2---",
+        "headers": {
+          "Host": "telewebion.com"
+        }
+      }
+    },
+    {
+      "tag": "German5",
+      "type": "vless",
+      "server": "185.235.241.58",
+      "server_port": 443,
+      "uuid": "e615a5ba-fce3-4ffa-9c86-b0327a8a107a",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/hormoz",
+        "headers": {
+          "Host": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc"
+        }
+      }
+    },
+    {
+      "tag": "HongKong0",
+      "type": "vless",
+      "server": "47.239.246.82",
+      "server_port": 443,
+      "uuid": "3e7f67de-648e-4871-b51a-a225214d41ee",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "cdn.userway.org",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "TRP10HqKUXEQ3O-cfsq93DycfBmbJe9KM36yvSa8Mmw",
+          "short_id": ""
+        }
+      }
+    },
+    {
+      "tag": "Estonia0",
+      "type": "vless",
+      "server": "51.250.110.75",
+      "server_port": 1488,
+      "uuid": "5ba2e48a-d36c-40a5-a4a1-2819ed6efce5",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "ads.x5.ru",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc",
+          "short_id": "6ba85179e30d4fc2"
+        }
+      }
+    },
+    {
+      "tag": "Estonia1",
+      "type": "vless",
+      "server": "51.250.98.101",
+      "server_port": 1488,
+      "uuid": "5ba2e48a-d36c-40a5-a4a1-2819ed6efce5",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "ads.x5.ru",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc",
+          "short_id": "6ba85179e30d4fc2"
+        }
+      }
+    },
+    {
+      "tag": "Netherlands0",
+      "type": "vless",
+      "server": "81.161.229.122",
+      "server_port": 443,
+      "uuid": "407b3941-8bf7-49d5-abc6-1ffd61e57990",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.microsoft.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "XB_Ylp1U4K2uth4jZI2v7Wru8O1cy7Hw26LwlB9QAkk",
+          "short_id": "6ba85179e30d4fc2"
+        }
+      }
+    },
+    {
+      "tag": "Netherlands1",
+      "type": "vless",
+      "server": "51.250.19.203",
+      "server_port": 1488,
+      "uuid": "5ba2e48a-d36c-40a5-a4a1-2819ed6efce5",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "ads.x5.ru",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc",
+          "short_id": ""
+        }
+      }
+    },
+    {
+      "tag": "Usa1",
+      "type": "vless",
+      "server": "85.209.195.99",
+      "server_port": 443,
+      "uuid": "e615a5ba-fce3-4ffa-9c86-b0327a8a107a",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/hormoz",
+        "headers": {
+          "Host": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc"
+        }
+      }
+    },
+    {
+      "tag": "Russia0",
+      "type": "vless",
+      "server": "51.250.100.89",
+      "server_port": 4241,
+      "uuid": "8619e4c1-0984-4dce-83e3-419e2d7f5079",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "ads.x5.ru",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "OCRYYq4e92sQ-wWFRX6WX9pdvuFBWOqybLhpSiv3nFA",
+          "short_id": "111111"
+        }
+      }
+    },
+    {
+      "tag": "Russia1",
+      "type": "vless",
+      "server": "51.250.26.96",
+      "server_port": 4248,
+      "uuid": "5ba2e48a-d36c-40a5-a4a1-2819ed6efce5",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "ads.x5.ru",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc",
+          "short_id": ""
+        }
+      }
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "proxy",
+    "rule_set": [
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ads",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ads-all.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ir.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/ir.srs"
+      }
+    ],
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "outbound": "proxy"
+      },
+      {
+        "action": "hijack-dns",
+        "protocol": "dns"
+      },
+      {
+        "action": "route",
+        "outbound": "direct",
+        "rule_set": [
+          "geoip-private",
+          "geosite-private",
+          "geosite-ir",
+          "geoip-ir"
+        ]
+      },
+      {
+        "action": "reject",
+        "rule_set": [
+          "geosite-ads"
+        ]
+      }
+    ]
+  }
+}
