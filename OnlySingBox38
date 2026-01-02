@@ -1,0 +1,580 @@
+{
+  "dns": {
+    "final": "local-dns",
+    "rules": [
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "server": "proxy-dns",
+        "source_ip_cidr": [
+          "172.19.0.0/30",
+          "fdfe:dcba:9876::1/126"
+        ]
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "server": "direct-dns"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "geosite-ir"
+        ],
+        "server": "direct-dns"
+      }
+    ],
+    "servers": [
+      {
+        "address": "tcp://1.1.1.1",
+        "address_resolver": "local-dns",
+        "detour": "proxy",
+        "tag": "proxy-dns"
+      },
+      {
+        "address": "local",
+        "detour": "direct",
+        "tag": "local-dns"
+      },
+      {
+        "address": "tcp://8.8.8.8",
+        "detour": "direct",
+        "tag": "direct-dns"
+      }
+    ],
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "endpoint_independent_nat": false,
+      "mtu": 9000,
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 2080
+        }
+      },
+      "stack": "system",
+      "strict_route": false,
+      "type": "tun"
+    },
+    {
+      "listen": "127.0.0.1",
+      "listen_port": 2080,
+      "type": "mixed",
+      "users": []
+    }
+  ],
+  "outbounds": [
+    {
+      "outbounds": [
+        "auto",
+        "direct",
+        "Netherlands 0",
+        "Netherlands 1",
+        "German 0 ",
+        "Netherlands 2",
+        "Netherlands 3",
+        "France 0",
+        "German 2",
+        "Netherlands 4",
+        "Netherlands 5",
+        "German 3",
+        "German 4",
+        "Netherlands 6",
+        "German 5",
+        "German 6",
+        "German 7",
+        "France 3",
+        "German 8",
+        "USA 2",
+        "German 9"
+      ],
+      "tag": "proxy",
+      "type": "selector"
+    },
+    {
+      "interval": "10m",
+      "outbounds": [
+        "Netherlands 0",
+        "Netherlands 1",
+        "German 0 ",
+        "Netherlands 2",
+        "Netherlands 3",
+        "France 0",
+        "German 2",
+        "Netherlands 4",
+        "Netherlands 5",
+        "German 3",
+        "German 4",
+        "Netherlands 6",
+        "German 5",
+        "German 6",
+        "German 7",
+        "France 3",
+        "German 8",
+        "USA 2",
+        "German 9"
+      ],
+      "tag": "auto",
+      "tolerance": 50,
+      "type": "urltest",
+      "url": "http://www.gstatic.com/generate_204"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
+      "tag": "Netherlands 0",
+      "type": "hysteria2",
+      "server": "206.71.158.40",
+      "server_port": 35000,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "api.kermanshahi.org",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "Netherlands 1",
+      "type": "hysteria2",
+      "server": "[2a14:3f87:f001:1a::a]",
+      "server_port": 35000,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "api.kermanshahi.org",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "German 0 ",
+      "type": "hysteria2",
+      "server": "181.214.231.121",
+      "server_port": 33500,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "updates.kermanshahi.org",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "Netherlands 2",
+      "type": "hysteria2",
+      "server": "206.71.158.37",
+      "server_port": 35000,
+      "password": "Yet-Another-Public-Config-1",
+      "obfs": {
+        "type": "salamander",
+        "password": "Yet-Another-Public-Config-1"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "YAPC-1.afshin.ir",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "Netherlands 3",
+      "type": "hysteria2",
+      "server": "206.71.158.37",
+      "server_port": 36300,
+      "password": "Yet-Another-Public-Config-1",
+      "obfs": {
+        "type": "salamander",
+        "password": "Yet-Another-Public-Config-1"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "YAPC-1.afshin.ir",
+        "insecure": true,
+        "alpn": [
+          ""
+        ]
+      }
+    },
+    {
+      "tag": "France 0",
+      "type": "hysteria2",
+      "server": "135.125.204.154",
+      "server_port": 35000,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "api.kermanshahi.org",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "German 2",
+      "type": "hysteria2",
+      "server": "77.90.41.197",
+      "server_port": 35000,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "api.kermanshahi.org",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "Netherlands 4",
+      "type": "hysteria2",
+      "server": "206.71.158.41",
+      "server_port": 35000,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "api.kermanshahi.org",
+        "insecure": false,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "Netherlands 5",
+      "type": "hysteria2",
+      "server": "gavazn.lnmarketplace.net",
+      "server_port": 45000,
+      "password": "Telegram-->@Ln2Ray",
+      "obfs": {
+        "type": "salamander",
+        "password": "Telegram-->@Ln2Ray"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "gavazn.55994421.xyz",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "German 3",
+      "type": "hysteria2",
+      "server": "5.175.249.174",
+      "server_port": 33500,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "updates.kermanshahi.org",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "German 4",
+      "type": "hysteria2",
+      "server": "[2a0c:4ac1:8::121]",
+      "server_port": 35000,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "api.kermanshahi.org",
+        "insecure": false,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "Netherlands 6",
+      "type": "hysteria2",
+      "server": "[2a14:3f87:f001:1a::a]",
+      "server_port": 35000,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "jnir.pichondan.com",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "German 5",
+      "type": "hysteria2",
+      "server": "[2a0f:5707:aaf1:8453::1]",
+      "server_port": 33500,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "updates.kermanshahi.org",
+        "insecure": false,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "German 6",
+      "type": "hysteria2",
+      "server": "api.kermanshahi.org",
+      "server_port": 35000,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "api.kermanshahi.org",
+        "insecure": false,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "German 7",
+      "type": "hysteria2",
+      "server": "updates.kermanshahi.org",
+      "server_port": 33500,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "updates.kermanshahi.org",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "France 3",
+      "type": "hysteria2",
+      "server": "51.178.55.157",
+      "server_port": 35000,
+      "password": "b4bd0613-ff7c-4f2f-954d-185915e6ddad",
+      "obfs": {
+        "type": "salamander",
+        "password": "@JavidnamanIran-Javid-SHAH-KingRezaPahlavi"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "api.kermanshahi.org",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "German 8",
+      "type": "hysteria2",
+      "server": "gamingger02.wilduser.org",
+      "server_port": 2087,
+      "password": "infowild:Y7clYy8e6T9B5F9yKaiTI6rVluNvgBHC",
+      "obfs": {
+        "type": "salamander",
+        "password": "7suXl4gmts7Zkb2BTlJGcDr4NEF9mQGh"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "bts.com",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "USA 2",
+      "type": "hysteria2",
+      "server": "85.9.197.203",
+      "server_port": 2083,
+      "password": "gZBgjlPmPF",
+      "obfs": {
+        "type": "salamander",
+        "password": "Jsbdksj@V2RayyNGvpn$Miracle"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "refersion.com",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    },
+    {
+      "tag": "German 9",
+      "type": "hysteria2",
+      "server": "gamingger02.wilduser.org",
+      "server_port": 2087,
+      "password": "infowild:Y7clYy8e6T9B5F9yKaiTI6rVluNvgBHC",
+      "obfs": {
+        "type": "salamander",
+        "password": "7suXl4gmts7Zkb2BTlJGcDr4NEF9mQGh"
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "bts.com",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      }
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "proxy",
+    "rule_set": [
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ads",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ads-all.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geosite-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geosite/category-ir.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-private",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/private.srs"
+      },
+      {
+        "download_detour": "direct",
+        "format": "binary",
+        "tag": "geoip-ir",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/itsyebekhe/meta-rules-dat-sing/main/geo/geoip/ir.srs"
+      }
+    ],
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "action": "route",
+        "clash_mode": "Global",
+        "outbound": "proxy"
+      },
+      {
+        "action": "hijack-dns",
+        "protocol": "dns"
+      },
+      {
+        "action": "route",
+        "outbound": "direct",
+        "rule_set": [
+          "geoip-private",
+          "geosite-private",
+          "geosite-ir",
+          "geoip-ir"
+        ]
+      },
+      {
+        "action": "reject",
+        "rule_set": [
+          "geosite-ads"
+        ]
+      }
+    ]
+  }
+}
